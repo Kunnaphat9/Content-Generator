@@ -26,15 +26,21 @@ async def handle_start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> No
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Handle incoming text messages."""
     text = update.message.text or ""
+    logger.info("Message received: %r (chat_id=%s)", text, update.message.chat_id)
 
     if TRIGGER_PHRASE not in text:
+        logger.info("Trigger phrase not found — ignoring")
         return
 
+    logger.info("Trigger matched — starting content generation")
     # Acknowledge the request
-    processing_msg = await update.message.reply_text(
-        "กำลังสร้างบทความอยู่นะครับ รอสักครู่... ⏳",
-        parse_mode=ParseMode.MARKDOWN,
-    )
+    try:
+        processing_msg = await update.message.reply_text(
+            "กำลังสร้างบทความอยู่นะครับ รอสักครู่... ⏳",
+        )
+    except Exception as exc:
+        logger.exception("Failed to send processing message: %s", exc)
+        return
 
     try:
         content = await generate_content()

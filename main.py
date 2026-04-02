@@ -64,6 +64,8 @@ async def health_check():
 async def webhook(request: Request) -> Response:
     """Receive Telegram webhook updates."""
     data = await request.json()
+    logger.info("Webhook received update_id=%s type=%s",
+                data.get("update_id"), list(data.keys()))
     update = Update.de_json(data, telegram_app.bot)
     await telegram_app.process_update(update)
     return Response(content="ok", status_code=200)
