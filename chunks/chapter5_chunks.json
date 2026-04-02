@@ -1,0 +1,110 @@
+{
+  "chapter": "5",
+  "chapter_title": "ศูนย์กลางในการพิจารณา",
+  "source": "Mastering Elliott Wave",
+  "chunks": [
+    {
+      "chunk_id": "C5-01",
+      "concept": "Polywave Overview",
+      "label": "โครงสร้างของ Polywave",
+      "category": "IMPULSE",
+      "summary": "Polywave คืออะไร และทำไมต้องคิดแบบ 'กลุ่มคลื่น' ไม่ใช่คลื่นเดี่ยว",
+      "keywords": ["Polywave", "Monowave", "กลุ่มคลื่น", "Structure Series"]
+    },
+    {
+      "chunk_id": "C5-02",
+      "concept": "Impulse Essential Rules",
+      "label": "Essential Construction Rules — กฎโครงสร้างสำคัญของ Impulse",
+      "category": "IMPULSE",
+      "summary": "กฎ 7 ข้อที่ต้องผ่านทั้งหมดก่อนจะเรียกว่า Impulsive ได้ รวมถึง wave 2 ห้าม retrace 100% / wave 3 ห้ามสั้นที่สุด",
+      "keywords": ["Impulse", "Essential Rules", "5 waves", "wave 3", "wave 2", "retrace"]
+    },
+    {
+      "chunk_id": "C5-03",
+      "concept": "Extension Rule",
+      "label": "Extension Rule — กฎคลื่นขยาย",
+      "category": "IMPULSE",
+      "summary": "คลื่นที่ยาวที่สุดต้องยาวอย่างน้อย 161.8% ของคลื่นที่ยาวรองลงมา ถ้าไม่มีคลื่นขยาย = ไม่ใช่ Impulse",
+      "keywords": ["Extension", "161.8%", "Impulse", "คลื่นขยาย", "Corrective"]
+    },
+    {
+      "chunk_id": "C5-04",
+      "concept": "Rule of Alternation",
+      "label": "Rule of Alternation — กฎการสลับ",
+      "category": "IMPULSE",
+      "summary": "Wave 2 และ 4 ต้องสลับกันในด้านราคา เวลา ความรุนแรง ความซับซ้อน หรือโครงสร้าง อย่างน้อย 1 ด้าน",
+      "keywords": ["Alternation", "wave 2", "wave 4", "สลับ", "ราคา", "เวลา", "ความซับซ้อน"]
+    },
+    {
+      "chunk_id": "C5-05",
+      "concept": "Overlap Rule",
+      "label": "Overlap Rule — กฎความเหลื่อมล้ำ (Trending vs Terminal)",
+      "category": "IMPULSE",
+      "summary": "Trending Impulse: wave 4 ห้ามเข้าไปในช่วงราคา wave 2 / Terminal Impulse: wave 4 ต้องเหลื่อมกับ wave 2",
+      "keywords": ["Overlap", "Trending Impulse", "Terminal Impulse", "wave 4", "wave 2"]
+    },
+    {
+      "chunk_id": "C5-06",
+      "concept": "Fibonacci Relationships in Impulse",
+      "label": "Fibonacci Relationships — สัดส่วนฟิโบนัคชีใน Impulse",
+      "category": "IMPULSE",
+      "summary": "ความสัมพันธ์ฟิโบระหว่างคลื่น 1/3/5 ขึ้นอยู่กับว่าคลื่นไหนขยาย เช่น ถ้าคลื่น 3 ขยาย คลื่น 1 กับ 5 มักเท่ากัน",
+      "keywords": ["Fibonacci", "61.8%", "161.8%", "Extension wave 1", "Extension wave 3", "Extension wave 5"]
+    },
+    {
+      "chunk_id": "C5-07",
+      "concept": "Flat B-Wave Types",
+      "label": "Flat — ประเภทของคลื่น B (Weak / Normal / Strong)",
+      "category": "CORRECTION",
+      "summary": "คลื่น B ใน Flat แบ่งได้ 3 แบบ: Weak-B (61.8-80%), Normal-B (81-100%), Strong-B (>100%) และแต่ละแบบทำให้คลื่น C มีพฤติกรรมต่างกัน",
+      "keywords": ["Flat", "Weak-B", "Normal-B", "Strong-B", "wave B", "wave C", "61.8%", "100%"]
+    },
+    {
+      "chunk_id": "C5-08",
+      "concept": "Flat Subtypes",
+      "label": "Flat Subtypes — ประเภทย่อยของ Flat",
+      "category": "CORRECTION",
+      "summary": "Flat มีหลายประเภทย่อย: Common, Elongated, Irregular, Irregular Failure, Running, B-Failure, C-Failure, Double Failure — แต่ละแบบมีเงื่อนไขต่างกัน",
+      "keywords": ["Common Flat", "Elongated Flat", "Irregular Flat", "Running Correction", "B-Failure", "C-Failure", "Double Failure"]
+    },
+    {
+      "chunk_id": "C5-09",
+      "concept": "Zigzag",
+      "label": "Zigzag (5-3-5) — Normal, Truncated, Elongated",
+      "category": "CORRECTION",
+      "summary": "Zigzag คือ Correction เดียวที่ดูคล้าย Impulse ได้ คลื่น B ห้าม retrace เกิน 61.8% ของ A / คลื่น C อยู่ที่ 61.8%-161.8% ของ A",
+      "keywords": ["Zigzag", "5-3-5", "wave A", "wave B", "wave C", "Truncated", "Elongated", "61.8%"]
+    },
+    {
+      "chunk_id": "C5-10",
+      "concept": "Contracting Triangle",
+      "label": "Contracting Triangle (3-3-3-3-3)",
+      "category": "CORRECTION",
+      "summary": "Triangle ที่บีบตัว คลื่นแต่ละคลื่นเล็กลงเรื่อยๆ แบ่งเป็น Limiting และ Non-Limiting / คลื่น e มักเบรก trendline ก่อนจบ",
+      "keywords": ["Contracting Triangle", "Limiting", "Non-Limiting", "wave e", "trendline", "3-3-3-3-3"]
+    },
+    {
+      "chunk_id": "C5-11",
+      "concept": "Expanding Triangle",
+      "label": "Expanding Triangle — Triangle ที่ขยายตัว",
+      "category": "CORRECTION",
+      "summary": "Triangle ที่คลื่นแต่ละคลื่นใหญ่ขึ้น คลื่น e มักใหญ่ที่สุดและเบรก trendline a-c / thrust หลังจบ Triangle มักน้อยกว่าคลื่น e",
+      "keywords": ["Expanding Triangle", "wave e", "wave a", "wave b", "thrust", "trendline"]
+    },
+    {
+      "chunk_id": "C5-12",
+      "concept": "Channeling Corrections",
+      "label": "Channeling — การตีเทรนด์ไลน์ของ Corrections",
+      "category": "CORRECTION",
+      "summary": "วิธีตี trendline สำหรับ Flat, Zigzag และ Triangle / เมื่อ trendline 0-B ถูกเบรก = สัญญาณว่า correction น่าจะจบแล้ว",
+      "keywords": ["Channeling", "trendline", "0-B line", "Flat", "Zigzag", "Triangle", "channel"]
+    }
+  ],
+  "total_chunks": 12,
+  "dimensions_available": [
+    "PAIN", "MYTH", "REFRAME", "APPLIED", "COMPARE",
+    "ANALOGY", "CHECKLIST", "CASE STUDY", "BEGINNER BRIDGE",
+    "ADVANCED CHALLENGE", "FRUSTRATION", "IDENTITY"
+  ],
+  "total_possible_articles": 144
+}
