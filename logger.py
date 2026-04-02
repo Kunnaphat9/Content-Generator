@@ -21,13 +21,17 @@ def _get_dsn() -> str:
     unresolved reference string.  asyncpg requires postgresql://.
     """
     url = os.getenv("DATABASE_URL", "").strip()
+    # Log what Railway actually injected (mask password) to aid debugging
+    masked = url[:30] + "…" if len(url) > 30 else url
+    logger.info("DATABASE_URL raw value (first 30 chars): %r", masked)
     if url.startswith("postgres://"):
         url = "postgresql://" + url[len("postgres://"):]
     if not url.startswith("postgresql://"):
         raise RuntimeError(
-            "DATABASE_URL is missing or invalid. "
-            "Set it to the public Railway PostgreSQL URL "
-            "(e.g. postgresql://user:pass@host.railway.app:5432/railway)."
+            f"DATABASE_URL is missing or invalid (got: {masked!r}). "
+            "In Railway: open your service → Variables → add DATABASE_URL "
+            "and set it to the value from the Postgres plugin's 'Connect' tab "
+            "(public URL starting with postgresql://)."
         )
     return url
 
@@ -61,6 +65,7 @@ async def get_pool() -> asyncpg.Pool:
                 command_timeout=30,
             )
             logger.info("PostgreSQL connection pool established (attempt %d).", attempt)
+            await _create_table(_pool)
             return _pool
         except Exception as exc:
             last_exc = exc
@@ -77,9 +82,8 @@ async def close_pool() -> None:
         _pool = None
 
 
-async def ensure_table() -> None:
+async def _create_table(pool: asyncpg.Pool) -> None:
     """Create the used_combinations table if it does not exist."""
-    pool = await get_pool()
     async with pool.acquire() as conn:
         await conn.execute(
             """
@@ -92,6 +96,11 @@ async def ensure_table() -> None:
             """
         )
     logger.info("Table 'used_combinations' is ready.")
+
+
+async def ensure_table() -> None:
+    """Public helper — triggers lazy pool init + table creation."""
+    await get_pool()
 
 
 async def get_used_combinations() -> list[tuple[str, str]]:

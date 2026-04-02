@@ -10,7 +10,7 @@ from fastapi import FastAPI, Request, Response
 from telegram import Update
 
 from bot import build_application
-from logger import close_pool, ensure_table
+from logger import close_pool
 
 load_dotenv()
 
@@ -32,7 +32,6 @@ async def lifespan(app: FastAPI):
     """Startup and shutdown lifecycle."""
     logger.info("Starting up...")
     await telegram_app.initialize()
-    await ensure_table()
     yield
     logger.info("Shutting down...")
     await telegram_app.shutdown()
