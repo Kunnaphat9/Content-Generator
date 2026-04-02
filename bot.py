@@ -45,10 +45,17 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     try:
         content = await generate_content()
         await processing_msg.delete()
-        await update.message.reply_text(
-            content,
-            parse_mode=ParseMode.MARKDOWN,
-        )
+        # Split header + body to handle potential message length limits
+        lines = content.split("\n", 5)  # Split at first 5 newlines
+        header = "\n".join(lines[:5])
+        body = "\n".join(lines[5:]) if len(lines) > 5 else ""
+
+        # Send header + body separately if combined is too long (Telegram limit: 4096)
+        if len(content) <= 4096:
+            await update.message.reply_text(content, parse_mode=ParseMode.MARKDOWN)
+        else:
+            await update.message.reply_text(header, parse_mode=ParseMode.MARKDOWN)
+            await update.message.reply_text(body, parse_mode=ParseMode.MARKDOWN)
     except httpx.HTTPStatusError as exc:
         logger.exception("GitHub fetch failed: %s", exc)
         await processing_msg.edit_text(

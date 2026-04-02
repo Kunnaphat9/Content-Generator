@@ -73,6 +73,8 @@ async def generate_content() -> str:
     header = (
         f"📊 *Elliott Wave Content*\n"
         f"Chunk: `{chunk_id}` | Dimension: `{dimension}`\n"
-        f"{'─' * 30}\n\n"
+        f"{'─' * 35}\n\n"
     )
-    return header + result_text
+    # Add formatting hints for Telegram markdown
+    formatted_text = result_text.replace("## ", "*🔹 ").replace("### ", "    *▪️ ")
+    return header + formatted_text
