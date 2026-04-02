@@ -1,6 +1,7 @@
 """Telegram bot handlers."""
 
 import logging
+import httpx
 
 from telegram import Update
 from telegram.constants import ParseMode
@@ -42,10 +43,28 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             content,
             parse_mode=ParseMode.MARKDOWN,
         )
+    except httpx.HTTPStatusError as exc:
+        logger.exception("GitHub fetch failed: %s", exc)
+        await processing_msg.edit_text(
+            f"❌ ดึงไฟล์จาก GitHub ไม่ได้ครับ ({exc.response.status_code})\n"
+            f"URL: {exc.request.url}\n\n"
+            "กรุณาตรวจสอบว่า GITHUB_RAW_BASE_URL ชี้ไปที่ branch ที่ถูกต้องครับ"
+        )
+    except httpx.RequestError as exc:
+        logger.exception("GitHub network error: %s", exc)
+        await processing_msg.edit_text(
+            f"❌ เชื่อมต่อ GitHub ไม่ได้ครับ\nError: {type(exc).__name__}\n\nกรุณาลองใหม่อีกครั้งครับ"
+        )
+    except RuntimeError as exc:
+        logger.exception("Runtime error: %s", exc)
+        await processing_msg.edit_text(
+            f"❌ เกิดข้อผิดพลาดครับ\n\n{exc}"
+        )
     except Exception as exc:
         logger.exception("Content generation failed: %s", exc)
         await processing_msg.edit_text(
-            "ขอโทษครับ เกิดข้อผิดพลาดในการสร้างบทความ กรุณาลองใหม่อีกครั้งครับ ❌"
+            f"❌ เกิดข้อผิดพลาดที่ไม่คาดคิดครับ\n\n"
+            f"[{type(exc).__name__}] {exc}"
         )
 
 
