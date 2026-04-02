@@ -21,6 +21,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN", "")
+WEBHOOK_URL = os.getenv("WEBHOOK_URL", "").rstrip("/")  # e.g. https://your-app.railway.app
 WEBHOOK_PATH = "/webhook"
 
 # Build the Telegram application once at module level so it is reused
@@ -32,8 +33,20 @@ async def lifespan(app: FastAPI):
     """Startup and shutdown lifecycle."""
     logger.info("Starting up...")
     await telegram_app.initialize()
+
+    if WEBHOOK_URL:
+        full_webhook = f"{WEBHOOK_URL}{WEBHOOK_PATH}"
+        await telegram_app.bot.set_webhook(url=full_webhook)
+        logger.info("Webhook registered: %s", full_webhook)
+    else:
+        logger.warning(
+            "WEBHOOK_URL is not set — Telegram will not deliver messages. "
+            "Add WEBHOOK_URL=https://<your-railway-domain> in Railway Variables."
+        )
+
     yield
     logger.info("Shutting down...")
+    await telegram_app.bot.delete_webhook()
     await telegram_app.shutdown()
     await close_pool()
 
