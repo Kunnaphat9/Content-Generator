@@ -46,7 +46,6 @@ async def lifespan(app: FastAPI):
 
     yield
     logger.info("Shutting down...")
-    await telegram_app.bot.delete_webhook()
     await telegram_app.shutdown()
     await close_pool()
 
