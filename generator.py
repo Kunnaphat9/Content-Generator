@@ -11,7 +11,7 @@ from prompts import DIMENSIONS, build_system_prompt, build_user_message
 
 logger = logging.getLogger(__name__)
 
-CLAUDE_MODEL = "claude-sonnet-4-20250514"
+CLAUDE_MODEL = "claude-sonnet-4-6"
 MAX_TOKENS = 1500
 
 
