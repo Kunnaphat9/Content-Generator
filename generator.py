@@ -1,5 +1,6 @@
 """Content generation logic: selects chunk × dimension, calls Claude API."""
 
+import asyncio
 import logging
 import os
 import random
@@ -37,14 +38,15 @@ def _pick_combination(
 
 async def generate_content() -> str:
     """Full pipeline: select combination → fetch knowledge → call Claude → log."""
-    # 1. Fetch chunk map and used combinations in parallel context
-    chunk_map = await fetch_chunk_map()
+    # 1. Fetch chunk map + used DB combinations in parallel
+    chunk_map, used = await asyncio.gather(
+        fetch_chunk_map(),
+        get_used_combinations(),
+    )
     chunk_ids = extract_chunk_ids(chunk_map)
 
     if not chunk_ids:
         raise ValueError("Chunk map returned no chunk IDs.")
-
-    used = await get_used_combinations()
 
     # 2. Pick unused combination
     all_combinations = _build_all_combinations(chunk_ids)
