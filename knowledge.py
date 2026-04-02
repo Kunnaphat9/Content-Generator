@@ -9,31 +9,59 @@ logger = logging.getLogger(__name__)
 
 GITHUB_RAW_BASE_URL = os.getenv("GITHUB_RAW_BASE_URL", "")
 
-CHUNK_MAP_PATH = "chunks/chapter5_chunks.json"
+
+def _parse_raw_url(raw_base: str) -> tuple[str, str, str] | None:
+    """Parse owner, repo, ref from a raw.githubusercontent.com base URL.
+
+    e.g. https://raw.githubusercontent.com/Org/Repo/my/branch
+    →  ("Org", "Repo", "my/branch")
+    """
+    prefix = "https://raw.githubusercontent.com/"
+    if not raw_base.startswith(prefix):
+        return None
+    parts = raw_base[len(prefix):].rstrip("/").split("/", 2)
+    if len(parts) < 3:
+        return None
+    return parts[0], parts[1], parts[2]
 
 
-def _github_headers() -> dict:
-    """Return auth headers for GitHub. Works for both public and private repos."""
+async def _fetch_file(path: str) -> dict:
+    """Fetch a JSON file from GitHub, using the Contents API when a token is set."""
     token = os.getenv("GITHUB_TOKEN", "")
-    return {"Authorization": f"Bearer {token}"} if token else {}
+    parsed = _parse_raw_url(GITHUB_RAW_BASE_URL)
+
+    if token and parsed:
+        # GitHub Contents API — works reliably for private repos
+        owner, repo, ref = parsed
+        url = f"https://api.github.com/repos/{owner}/{repo}/contents/{path}?ref={ref}"
+        headers = {
+            "Authorization": f"Bearer {token}",
+            "Accept": "application/vnd.github.v3.raw",  # returns raw bytes, not base64
+        }
+        logger.info("Fetching via GitHub API: %s (ref=%s)", path, ref)
+    else:
+        # No token — public repo, use raw URL directly
+        url = f"{GITHUB_RAW_BASE_URL.rstrip('/')}/{path}"
+        headers = {}
+        logger.info("Fetching via raw URL: %s", url)
+
+    async with httpx.AsyncClient(timeout=15.0) as client:
+        response = await client.get(url, headers=headers)
+        response.raise_for_status()
+        return response.json()
+
+
+CHUNK_MAP_PATH = "chunks/chapter5_chunks.json"
 
 
 async def fetch_chunk_map() -> dict:
     """Fetch the chunk map JSON from GitHub."""
-    url = f"{GITHUB_RAW_BASE_URL.rstrip('/')}/{CHUNK_MAP_PATH}"
-    async with httpx.AsyncClient(timeout=15.0) as client:
-        response = await client.get(url, headers=_github_headers())
-        response.raise_for_status()
-        return response.json()
+    return await _fetch_file(CHUNK_MAP_PATH)
 
 
 async def fetch_knowledge_file(chunk_id: str) -> dict:
     """Fetch a specific knowledge file from GitHub by chunk_id."""
-    url = f"{GITHUB_RAW_BASE_URL.rstrip('/')}/knowledge/{chunk_id}.json"
-    async with httpx.AsyncClient(timeout=15.0) as client:
-        response = await client.get(url, headers=_github_headers())
-        response.raise_for_status()
-        return response.json()
+    return await _fetch_file(f"knowledge/{chunk_id}.json")
 
 
 def extract_chunk_ids(chunk_map: dict) -> list[str]:
