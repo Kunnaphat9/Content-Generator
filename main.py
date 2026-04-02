@@ -10,7 +10,6 @@ from fastapi import FastAPI, Request, Response
 from telegram import Update
 
 from bot import build_application
-from logger import close_pool
 
 load_dotenv()
 
@@ -47,7 +46,6 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Shutting down...")
     await telegram_app.shutdown()
-    await close_pool()
 
 
 app = FastAPI(title="Elliott Wave Content Generator", lifespan=lifespan)
