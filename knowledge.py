@@ -12,11 +12,17 @@ GITHUB_RAW_BASE_URL = os.getenv("GITHUB_RAW_BASE_URL", "")
 CHUNK_MAP_PATH = "chunks/chapter5_chunks.json"
 
 
+def _github_headers() -> dict:
+    """Return auth headers for GitHub. Works for both public and private repos."""
+    token = os.getenv("GITHUB_TOKEN", "")
+    return {"Authorization": f"Bearer {token}"} if token else {}
+
+
 async def fetch_chunk_map() -> dict:
     """Fetch the chunk map JSON from GitHub."""
     url = f"{GITHUB_RAW_BASE_URL.rstrip('/')}/{CHUNK_MAP_PATH}"
     async with httpx.AsyncClient(timeout=15.0) as client:
-        response = await client.get(url)
+        response = await client.get(url, headers=_github_headers())
         response.raise_for_status()
         return response.json()
 
@@ -25,7 +31,7 @@ async def fetch_knowledge_file(chunk_id: str) -> dict:
     """Fetch a specific knowledge file from GitHub by chunk_id."""
     url = f"{GITHUB_RAW_BASE_URL.rstrip('/')}/knowledge/{chunk_id}.json"
     async with httpx.AsyncClient(timeout=15.0) as client:
-        response = await client.get(url)
+        response = await client.get(url, headers=_github_headers())
         response.raise_for_status()
         return response.json()
 
