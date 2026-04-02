@@ -6,7 +6,7 @@ import random
 
 import anthropic
 
-from knowledge import extract_chunk_ids, fetch_chunk_map, fetch_knowledge_file
+from knowledge import extract_chunk_ids, fetch_chunk_map, fetch_knowledge_file, get_chunk_metadata
 from logger import get_used_combinations, log_combination
 from prompts import DIMENSIONS, build_system_prompt, build_user_message
 
@@ -57,9 +57,35 @@ async def generate_content() -> str:
     logger.info("Selected combination: chunk_id=%s, dimension=%s", chunk_id, dimension)
 
     # 3. Fetch knowledge file for selected chunk
-    chunk_data = await fetch_knowledge_file(chunk_id)
+    raw_knowledge = await fetch_knowledge_file(chunk_id)
+    chunk_meta = get_chunk_metadata(chunk_map, chunk_id)
 
-    # 4. Build prompts
+    # 4. Normalize into a flat dict that build_system_prompt expects
+    # content may be a list of section objects → flatten to plain text
+    raw_content = raw_knowledge.get("content", "")
+    if isinstance(raw_content, list):
+        parts = []
+        for section in raw_content:
+            if section.get("title"):
+                parts.append(section["title"])
+            for para in section.get("paragraphs", []):
+                if para.get("text"):
+                    parts.append(para["text"])
+            for sub in section.get("subsections", []):
+                if sub.get("title"):
+                    parts.append(sub["title"])
+                for para in sub.get("paragraphs", []):
+                    if para.get("text"):
+                        parts.append(para["text"])
+        raw_content = "\n\n".join(parts)
+
+    chunk_data = {
+        "title": chunk_meta.get("label") or raw_knowledge.get("label", ""),
+        "summary": chunk_meta.get("summary", ""),
+        "content": raw_content,
+        "key_concepts": chunk_meta.get("keywords", []),
+    }
+
     system_prompt = build_system_prompt(dimension, chunk_data)
     user_message = build_user_message(dimension, chunk_id)
 

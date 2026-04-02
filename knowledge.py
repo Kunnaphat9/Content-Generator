@@ -34,17 +34,32 @@ def extract_chunk_ids(chunk_map: dict) -> list[str]:
     """Extract all chunk IDs from the chunk map.
 
     Supports chunk map formats:
-      - {"chunks": ["c1", "c2", ...]}
+      - {"chunks": [{"chunk_id": "C5-01"}, ...]}   ← actual format
       - {"chunks": [{"id": "c1"}, ...]}
+      - {"chunks": ["c1", "c2", ...]}
       - ["c1", "c2", ...]
       - {"c1": {...}, "c2": {...}}  (dict keyed by chunk_id)
     """
+    def _id_from(item):
+        if isinstance(item, dict):
+            return item.get("chunk_id") or item.get("id") or ""
+        return item
+
     if isinstance(chunk_map, list):
-        return [item["id"] if isinstance(item, dict) else item for item in chunk_map]
+        return [_id_from(item) for item in chunk_map]
 
     if "chunks" in chunk_map:
-        chunks = chunk_map["chunks"]
-        return [item["id"] if isinstance(item, dict) else item for item in chunks]
+        return [_id_from(item) for item in chunk_map["chunks"]]
 
     # Assume keys are chunk IDs
     return list(chunk_map.keys())
+
+
+def get_chunk_metadata(chunk_map: dict, chunk_id: str) -> dict:
+    """Return the chunk map entry for a given chunk_id, or empty dict."""
+    chunks = chunk_map.get("chunks", [])
+    for item in chunks:
+        if isinstance(item, dict):
+            if item.get("chunk_id") == chunk_id or item.get("id") == chunk_id:
+                return item
+    return {}
