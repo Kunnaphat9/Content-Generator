@@ -1,4 +1,4 @@
-"""System prompt builder for Elliott Wave content generation."""
+"""System prompt builders for Elliott Wave content generation."""
 
 DIMENSIONS = [
     "PAIN",
@@ -73,65 +73,159 @@ DIMENSION_DEFINITIONS = {
     ),
 }
 
-VOICE_GUIDE = """
-## Voice Guide — Pitch (นักการศึกษา Elliott Wave ไทย)
 
-- **ชื่อ**: Pitch
-- **สไตล์**: ครูสอนแบบกันเอง พูดเป็นธรรมชาติ ไม่เป็นทางการ
-- **การอ้างตัวเอง**: ใช้ "แอด" แทน "ผม" หรือ "ฉัน"
-- **ภาษา**: ภาษาไทยธรรมชาติ ไม่ใช่การแปลจากภาษาอังกฤษ
-- **ลงท้ายประโยค**: ลงท้ายด้วย "ครับ" เป็นหลัก
-- **โครงสร้าง**: สร้างความตึงเครียดก่อน แล้วค่อยเฉลยคำตอบ
-- **น้ำเสียง**: เหมือนเพื่อนที่รู้เรื่องดีกำลังแชร์ความรู้ ไม่ใช่อาจารย์บรรยาย
-- **ห้าม**: ใช้ภาษาทางการเกินไป หรือแปลตรงๆ จากภาษาอังกฤษ
-"""
+def _format_list(items: list) -> str:
+    return "\n".join(f"- {i}" for i in items) if items else ""
 
 
-def build_system_prompt(dimension: str, chunk_data: dict) -> str:
-    """Build full system prompt with voice guide and dimension definition."""
+# ---------------------------------------------------------------------------
+# Step 1 — Generate 5 outlines
+# ---------------------------------------------------------------------------
+
+def build_outlines_system_prompt(dimension: str, chunk_data: dict) -> str:
     dimension_def = DIMENSION_DEFINITIONS.get(dimension, "")
     chunk_title = chunk_data.get("title", "")
     chunk_summary = chunk_data.get("summary", "")
     chunk_content = chunk_data.get("content", "")
     key_concepts = chunk_data.get("key_concepts", [])
-    key_concepts_str = "\n".join(f"- {c}" for c in key_concepts) if key_concepts else ""
+    key_concepts_str = _format_list(key_concepts)
 
-    return f"""คุณคือ Pitch นักการศึกษา Elliott Wave ชาวไทย
+    return f"""คุณคือ Pitch นักการศึกษา Elliott Wave จาก EWR (Elliott Wave Revolution)
 
-{VOICE_GUIDE}
+## ความรู้ที่ต้องใช้
+หัวข้อ: {chunk_title}
+สรุป: {chunk_summary}
 
-## Dimension ที่ต้องเขียน: {dimension}
-
-### นิยาม Dimension นี้:
-{dimension_def}
-
-## ความรู้ที่ต้องนำไปใช้
-
-### หัวข้อ: {chunk_title}
-### สรุป: {chunk_summary}
-
-### เนื้อหา:
+เนื้อหา:
 {chunk_content}
 
-{"### แนวคิดสำคัญ:" + chr(10) + key_concepts_str if key_concepts_str else ""}
+{"แนวคิดสำคัญ:" + chr(10) + key_concepts_str if key_concepts_str else ""}
+
+## Dimension: {dimension}
+{dimension_def}
 
 ## สิ่งที่ต้องสร้าง
+สร้าง 5 แนวทางบทความที่แตกต่างกัน แต่ละแนวทางต้องมี:
+1. ชื่อบทความ (กระชับ ดึงดูด)
+2. แนวคิดหลัก 1 ประโยค
+3. โครงร่าง 4-5 หัวข้อย่อย พร้อมคำอธิบายสั้นๆ
 
-1. **Content Idea** (1-2 ประโยค): แนวคิดหลักของบทความในมุมมอง {dimension}
-2. **Draft Outline** (5-7 หัวข้อย่อย): โครงร่างบทความพร้อมคำอธิบายสั้นๆ แต่ละหัวข้อ
+## รูปแบบที่ต้องการ (สำคัญมาก)
+คั่นแต่ละแนวทางด้วย ===OUTLINE=== เท่านั้น ห้ามใช้ตัวคั่นอื่น
+ตัวอย่าง:
+===OUTLINE===
+ชื่อ: ...
+แนวคิด: ...
+โครงร่าง:
+- ...
+- ...
+===OUTLINE===
+ชื่อ: ...
+...
 
-### กฎสำคัญ:
-- เขียนเป็นภาษาไทยทั้งหมด
-- ใช้น้ำเสียงของ Pitch ตลอด
-- อ้างตัวเองว่า "แอด"
-- สร้างความตึงเครียดก่อนเฉลยในโครงร่าง
-- ตอบในรูปแบบที่อ่านง่ายบน Telegram
+ห้าม: ใช้ภาษาทางการ, แปลตรงๆจากอังกฤษ, ลงท้ายด้วย "ค่ะ"
+ต้อง: เขียนภาษาไทยธรรมชาติ ลงท้ายด้วย "ครับ"
 """
 
 
-def build_user_message(dimension: str, chunk_id: str) -> str:
-    """Build user message for content generation."""
+def build_outlines_user_message(dimension: str, chunk_id: str) -> str:
     return (
-        f"ช่วยสร้าง Content Idea และ Draft Outline สำหรับบทความ Elliott Wave "
-        f"โดยใช้ Chunk: {chunk_id} และ Dimension: {dimension} ครับ"
+        f"สร้าง 5 แนวทางบทความ Elliott Wave "
+        f"Chunk: {chunk_id} | Dimension: {dimension} ครับ"
     )
+
+
+# ---------------------------------------------------------------------------
+# Step 2 — Generate full article from selected outline
+# ---------------------------------------------------------------------------
+
+def _extract_style_rules(style_data: dict) -> str:
+    """Extract key voice rules from style.json into a compact instruction block."""
+    lines = []
+
+    voice = style_data.get("voice", {})
+    if voice.get("self_reference"):
+        lines.append(f"- อ้างตัวเองว่า: {', '.join(voice['self_reference'])}")
+    if voice.get("reader_reference"):
+        lines.append(f"- เรียกผู้อ่านว่า: {', '.join(voice['reader_reference'])}")
+
+    ai_rules = style_data.get("what_ai_must_do", {})
+    always = ai_rules.get("always", [])
+    never = ai_rules.get("never", [])
+    if always:
+        lines.append("\nกฎที่ต้องทำเสมอ:")
+        lines.extend(f"  ✓ {r}" for r in always)
+    if never:
+        lines.append("\nกฎที่ห้ามทำ:")
+        lines.extend(f"  ✗ {r}" for r in never)
+
+    vocab = style_data.get("vocabulary", {})
+    use = vocab.get("phrases_to_use", [])
+    avoid = vocab.get("phrases_to_avoid", [])
+    if use:
+        lines.append(f"\nวลีที่ควรใช้: {', '.join(use[:6])}")
+    if avoid:
+        lines.append(f"วลีที่ห้ามใช้: {', '.join(avoid)}")
+
+    struct = style_data.get("structure_patterns", {})
+    opening = struct.get("opening", {})
+    closing = struct.get("closing", {})
+    if opening.get("pattern"):
+        lines.append(f"\nการเปิดบทความ: {opening['pattern']}")
+    if closing.get("signature_close"):
+        lines.append(f"การปิดบทความ: {closing['signature_close'][0]}")
+
+    lang = style_data.get("language_patterns", {})
+    endings = lang.get("sentence_endings", {})
+    if endings.get("most_common"):
+        lines.append(f"ลงท้ายประโยค: {', '.join(endings['most_common'])}")
+    if lang.get("transitional_whitespace", {}).get("pattern"):
+        lines.append("ใช้บรรทัดว่างแบ่ง section เสมอ")
+
+    return "\n".join(lines)
+
+
+def build_full_article_system_prompt(
+    style_data: dict, chunk_data: dict, dimension: str
+) -> str:
+    dimension_def = DIMENSION_DEFINITIONS.get(dimension, "")
+    chunk_title = chunk_data.get("title", "")
+    chunk_content = chunk_data.get("content", "")
+    style_rules = _extract_style_rules(style_data)
+
+    return f"""คุณคือ Pitch นักการศึกษา Elliott Wave จาก EWR (Elliott Wave Revolution)
+
+## Voice Guide — ต้องปฏิบัติตามอย่างเคร่งครัด
+{style_rules}
+
+## ความรู้พื้นฐาน
+หัวข้อ: {chunk_title}
+Dimension: {dimension} — {dimension_def}
+
+เนื้อหา:
+{chunk_content}
+
+## สิ่งที่ต้องทำ
+เขียนบทความเต็มรูปแบบตาม Outline ที่ผู้ใช้ส่งมา
+- ความยาว: 400-600 คำ
+- รูปแบบ: โพสต์ Facebook/บล็อกภาษาไทย
+- น้ำเสียง: เหมือน Pitch กำลังคุยกับเพื่อนแบบ 1:1
+- ห้ามใช้ Markdown headers (##) — ใช้ emoji หรือบรรทัดว่างแทน
+- ต้องจบด้วยการ invite ให้แสดงความคิดเห็น
+"""
+
+
+def build_full_article_user_message(outline: str) -> str:
+    return f"เขียนบทความเต็มรูปแบบตาม Outline นี้ครับ:\n\n{outline}"
+
+
+# ---------------------------------------------------------------------------
+# Legacy helpers (kept for backwards compatibility)
+# ---------------------------------------------------------------------------
+
+def build_system_prompt(dimension: str, chunk_data: dict) -> str:
+    return build_outlines_system_prompt(dimension, chunk_data)
+
+
+def build_user_message(dimension: str, chunk_id: str) -> str:
+    return build_outlines_user_message(dimension, chunk_id)

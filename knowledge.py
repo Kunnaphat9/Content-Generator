@@ -97,3 +97,14 @@ def get_chunk_metadata(chunk_map: dict, chunk_id: str) -> dict:
             if item.get("chunk_id") == chunk_id or item.get("id") == chunk_id:
                 return item
     return {}
+
+
+_style_guide_cache: dict | None = None
+
+
+async def fetch_style_guide() -> dict:
+    """Fetch and cache the style.json voice guide from GitHub."""
+    global _style_guide_cache
+    if _style_guide_cache is None:
+        _style_guide_cache = await _fetch_file("knowledge/style.json")
+    return _style_guide_cache
