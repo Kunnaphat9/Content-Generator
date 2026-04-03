@@ -1,0 +1,158 @@
+{
+  "chapter": "1",
+  "chapter_title": "ปฐมบททฤษฎีคลื่น",
+  "source": "Mastering Elliott Wave",
+  "chunks": [
+    {
+      "chunk_id": "C1-01",
+      "concept": "Elliott Wave as Mass Psychology",
+      "label": "ทฤษฎีคลื่นคือการวัดจิตวิทยามวลชน",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นเอลเลียตอธิบายพฤติกรรมราคาว่าเป็นผลของความโลภ ความกลัว และอารมณ์มวลชน ทำให้สิ่งที่ดูเหมือนเกิดแบบสุ่มในตลาดมีรูปแบบที่สามารถวิเคราะห์และคาดการณ์ได้",
+      "keywords": ["จิตวิทยามวลชน", "Mass Psychology", "พฤติกรรมราคา", "รูปแบบคลื่น", "Elliott Wave", "ความโลภ", "ความกลัว"]
+    },
+    {
+      "chunk_id": "C1-02",
+      "concept": "Market Patterns Are Non-Repeating",
+      "label": "รูปแบบตลาดไม่ซ้ำเป๊ะ — อย่าใช้อดีตตีตลาดอนาคต",
+      "category": "GENERAL",
+      "summary": "พฤติกรรมราคาในอดีตจะไม่เกิดซ้ำแบบเป๊ะๆ ทำให้ระบบเทรดที่อิงข้อมูลในอดีตหรือการเปรียบเทียบประวัติศาสตร์โดยตรงนั้นใช้ไม่ได้ผลในระยะยาว",
+      "keywords": ["Non-Repeating", "ไม่ซ้ำ", "อดีต", "ระบบเทรด", "Back-test", "1987 Crash", "1929"]
+    },
+    {
+      "chunk_id": "C1-03",
+      "concept": "Time Behavior of Patterns",
+      "label": "พฤติกรรมด้านเวลา — ไม่มีขีดจำกัดเวลาที่ตายตัว",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นไม่มีกรอบเวลาขั้นต่ำหรือสูงสุดที่ตายตัว แต่สามารถคาดการณ์ช่วงเวลาจบของรูปแบบได้จากการวิเคราะห์รูปแบบที่ผ่านมา และควรรอให้รูปแบบจบก่อนแล้วค่อยเข้าเทรด",
+      "keywords": ["Time Analysis", "เวลา", "รูปแบบจบ", "Confirmation", "Take Action", "ไม่เดาล่วงหน้า"]
+    },
+    {
+      "chunk_id": "C1-04",
+      "concept": "Price Action as Primary Indicator",
+      "label": "Price Action คือ Indicator ที่ดีที่สุด",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นยึดพฤติกรรมราคาโดยตรงเป็นหลัก เพราะการแปลงข้อมูลราคาเป็น Indicator อื่นทำให้ข้อมูลเสียความน่าเชื่อถือ ราคาคือสิ่งที่ส่งผลต่อกำไรขาดทุนโดยตรง",
+      "keywords": ["Price Action", "Indicator", "Raw Data", "พฤติกรรมราคา", "ไม่ใช้ Indicator"]
+    },
+    {
+      "chunk_id": "C1-05",
+      "concept": "Wave Theory Adaptability",
+      "label": "ความสามารถปรับตัวของทฤษฎีคลื่น",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นสามารถอธิบายพฤติกรรมราคาได้ทุกรูปแบบในทุกตลาด ปรับตัวได้กับเทคโนโลยีใหม่และข่าวปัจจัยพื้นฐาน โดยไม่ต้องพึ่งพาข้อมูลในอดีตมากำหนดอนาคต",
+      "keywords": ["Adaptability", "Dynamic", "ทุกตลาด", "ปรับตัว", "ปัจจัยพื้นฐาน", "Elliott Wave"]
+    },
+    {
+      "chunk_id": "C1-06",
+      "concept": "Benefits of Elliott Wave Mastery",
+      "label": "ประโยชน์ของการเชี่ยวชาญทฤษฎีคลื่น",
+      "category": "GENERAL",
+      "summary": "ความเชี่ยวชาญในทฤษฎีคลื่นช่วยให้คาดการณ์จุดกลับตัวของตลาดได้ ลดความเสี่ยงจากวิกฤต และใช้ได้กับหลายตลาดทั้งหุ้น ทอง อสังหาฯ หรือแม้แต่ข้อมูลอื่นๆที่มีกราฟ",
+      "keywords": ["จุดกลับตัว", "Market Reversal", "ประโยชน์", "Multi-Market", "ทองคำ", "XAU", "หุ้น"]
+    },
+    {
+      "chunk_id": "C1-07",
+      "concept": "Wave Theory vs Indicators",
+      "label": "ทฤษฎีคลื่น vs Indicator — ทำไมคลื่นถึงได้เปรียบ",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นช่วยให้รู้ว่าตอนไหน Indicator สามารถนำมาใช้ได้หรือไม่ได้ เช่น ตอนที่ตลาดกำลังจะกลับตัวแต่ Indicator ยังไม่ได้แสดง Overbought/Oversold คลื่นจะเห็นก่อนเสมอ",
+      "keywords": ["Indicator", "Overbought", "Oversold", "RSI", "คลื่นเห็นก่อน", "Wave vs Indicator", "1987"]
+    },
+    {
+      "chunk_id": "C1-08",
+      "concept": "Low-Frequency High-Quality Signals",
+      "label": "สัญญาณที่พบไม่บ่อยแต่เชื่อถือได้ — ไม่ Overtrade",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นช่วยให้เทรดเฉพาะตอนที่รูปแบบจบแล้ว ทำให้หลีกเลี่ยงการ Overtrade และวาง Stoploss ที่มีนัยสำคัญได้ ทำให้รู้ว่าตัวเองคาดการณ์ผิดเมื่อไหร่",
+      "keywords": ["Overtrade", "Stoploss", "Quality Signal", "รูปแบบจบ", "Risk Management", "เข้าเทรดปลอดภัย"]
+    },
+    {
+      "chunk_id": "C1-09",
+      "concept": "Complexity and Learning Curve",
+      "label": "ความซับซ้อนและ Learning Curve ของทฤษฎีคลื่น",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นเป็นการวิเคราะห์ที่ซับซ้อนที่สุดและต้องใช้เวลาหลายปีในการฝึก ต้องยอมรับว่าจะนับผิดบ่อยในช่วงแรก และความล้มเหลวส่วนใหญ่มาจากการไม่อุทิศเวลาพอ",
+      "keywords": ["Learning Curve", "ความซับซ้อน", "ฝึกคลื่น", "นับผิด", "เวลาที่ต้องใช้", "Full-Time"]
+    },
+    {
+      "chunk_id": "C1-10",
+      "concept": "Contrarian Mindset for Wave Analysts",
+      "label": "Mindset นักวิเคราะห์คลื่น — กล้าคิดต่างจากมวลชน",
+      "category": "GENERAL",
+      "summary": "นักวิเคราะห์คลื่นที่ประสบความสำเร็จต้องกล้าคิดตรงข้ามกับตลาด มีความมั่นใจสูง ควบคุมความโลภได้ บริหารเงินทุนเป็น และเปิดรับว่าตัวเองนับผิดพร้อมเปลี่ยนได้เร็ว",
+      "keywords": ["Contrarian", "คิดต่าง", "Mindset", "ความมั่นใจ", "Money Management", "เปลี่ยนการนับ"]
+    },
+    {
+      "chunk_id": "C1-11",
+      "concept": "Pattern Uncertainty Before Completion",
+      "label": "ความไม่แน่นอนก่อนรูปแบบจบ — รอยืนยันก่อนเสมอ",
+      "category": "GENERAL",
+      "summary": "การคาดการณ์จุดจบของรูปแบบด้วยความมั่นใจสูงก่อนที่มันจะใกล้จบเป็นเรื่องยากมาก ทำให้ต้องรอสัญญาณยืนยันก่อนเสมอ ไม่ใช่เดาล่วงหน้าตั้งแต่ต้น",
+      "keywords": ["Uncertainty", "ความไม่แน่นอน", "Confirmation", "รอยืนยัน", "จุดจบรูปแบบ", "Pattern End"]
+    },
+    {
+      "chunk_id": "C1-12",
+      "concept": "Bottom-Up Wave Counting Approach",
+      "label": "นับคลื่นจากล่างขึ้นบน — Bottom-Up ก่อนเสมอ",
+      "category": "GENERAL",
+      "summary": "การนับคลื่นที่ถูกต้องต้องเริ่มจากโครงสร้างเล็ก (ไทม์เฟรมเล็ก) ก่อนแล้วค่อยประกอบเป็นโครงสร้างใหญ่ ห้ามเริ่มจากไทม์เฟรมใหญ่แล้วลงมา เพราะจะทำให้นับผิด",
+      "keywords": ["Bottom-Up", "นับจากล่าง", "Timeframe", "ไทม์เฟรมเล็ก", "โครงสร้าง", "Wave Counting"]
+    },
+    {
+      "chunk_id": "C1-13",
+      "concept": "Objective Wave Counting — No Bias",
+      "label": "นับคลื่นแบบ Objective — ห้ามยัดคลื่นตามความเชื่อตัวเอง",
+      "category": "GENERAL",
+      "summary": "นักวิเคราะห์ต้องไม่ยัดโครงสร้างคลื่นให้เข้ากับความเชื่อของตัวเอง แต่ต้องรอให้รูปแบบฟอร์มออกมาก่อนแล้วค่อยอนุมาน ซึ่งเป็นหัวใจหลักที่ทำให้ทฤษฎีคลื่นแม่นยำ",
+      "keywords": ["Objective", "Bias", "ยัดคลื่น", "No Prediction", "รอรูปแบบ", "วิเคราะห์หลังเกิด"]
+    },
+    {
+      "chunk_id": "C1-14",
+      "concept": "Multi-Timeframe Analysis",
+      "label": "วิเคราะห์ได้หลายไทม์เฟรมพร้อมกัน",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นสามารถวิเคราะห์ทุกไทม์เฟรมพร้อมกันได้ตั้งแต่รายชั่วโมงถึงรายปี ทำให้นักเทรดเลือกเทรดในไทม์เฟรมที่เหมาะสมได้โดยไม่สูญเสียภาพรวม",
+      "keywords": ["Multi-Timeframe", "หลายไทม์เฟรม", "Daily", "Weekly", "Hourly", "Top-Down"]
+    },
+    {
+      "chunk_id": "C1-15",
+      "concept": "Fractal Nature of Waves",
+      "label": "คลื่นมีโครงสร้างแบบ Fractal — เหมือนกันในทุก Scale",
+      "category": "ADVANCED",
+      "summary": "รูปแบบคลื่นเดียวกันปรากฏซ้ำในทุกระดับ ตั้งแต่วินาทีถึงร้อยปี คลื่นย่อยในไทม์เฟรมเล็กส่งผลต่อโครงสร้างใหญ่เสมอ นี่คือความแตกต่างหลักของทฤษฎีคลื่นจากเทคนิคอื่น",
+      "keywords": ["Fractal", "Self-Similar", "Degree", "ระดับคลื่น", "Scale", "โครงสร้างทุกขนาด"]
+    },
+    {
+      "chunk_id": "C1-16",
+      "concept": "Applicable Markets for Elliott Wave",
+      "label": "ตลาดที่ทฤษฎีคลื่นใช้ได้ดี",
+      "category": "GENERAL",
+      "summary": "ทฤษฎีคลื่นใช้ได้ดีในตลาดที่มีคนเข้าร่วมเยอะ เช่น ทองคำ หุ้น อสังหาฯ ใช้ได้ไม่ดีกับตลาดที่ขึ้นอยู่กับปัจจัยธรรมชาติ เพราะตลาดที่มนุษย์มีส่วนร่วมมากจะแสดงจิตวิทยามวลชนชัดกว่า",
+      "keywords": ["ตลาดที่ใช้ได้", "ทองคำ", "XAU", "หุ้น", "อสังหาฯ", "Mass Participation", "จิตวิทยามวลชน"]
+    },
+    {
+      "chunk_id": "C1-17",
+      "concept": "Progress Labels — Overrated for Beginners",
+      "label": "Progress Label (1,2,3,a,b,c) — ไม่ควรโฟกัสตอนเริ่มต้น",
+      "category": "GENERAL",
+      "summary": "การโฟกัสที่ตัวเลขและตัวอักษรในการนับคลื่น (1,2,3,4,5,a,b,c) ตั้งแต่แรกเริ่มเป็นสิ่งที่ทำให้มือใหม่สับสนมากขึ้น ควรเรียนโครงสร้างและกฎก่อนแล้วค่อยใส่ label ทีหลัง",
+      "keywords": ["Progress Label", "1,2,3,4,5", "a,b,c", "มือใหม่", "Beginner", "สับสน", "Wave Label"]
+    },
+    {
+      "chunk_id": "C1-18",
+      "concept": "Neely's New Techniques Overview",
+      "label": "เทคนิคใหม่ของนีลลี — ปริมาณข้อมูลแทนคุณภาพ",
+      "category": "ADVANCED",
+      "summary": "Glenn Neely พัฒนาเทคนิคใหม่ที่เพิ่มความเป็นข้อมูลเชิงปริมาณให้กับทฤษฎีคลื่นดั้งเดิม เช่น Rule of Similarity and Balance, Neely Extension, Complexity Rule เพื่อลดความเป็นนามธรรมในการวิเคราะห์",
+      "keywords": ["Neely", "Rule of Similarity", "Neely Extension", "Complexity Rule", "Quantitative", "เชิงปริมาณ", "Structure Series"]
+    }
+  ],
+  "total_chunks": 18,
+  "dimensions_available": [
+    "PAIN", "MYTH", "REFRAME", "APPLIED", "COMPARE",
+    "ANALOGY", "CHECKLIST", "CASE STUDY", "BEGINNER BRIDGE",
+    "ADVANCED CHALLENGE", "FRUSTRATION", "IDENTITY"
+  ],
+  "total_possible_articles": 216
+}
