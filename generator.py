@@ -52,7 +52,7 @@ async def _build_chunk_data(chunk_id: str, chunk_map: dict) -> dict:
     }
 
 
-async def generate_outlines() -> dict:
+async def generate_outlines(chapter_id: str | None = None) -> dict:
     """Step 1: Select random chunk × dimension, generate 5 outlines.
 
     Returns:
@@ -64,7 +64,7 @@ async def generate_outlines() -> dict:
             "raw_response": "...",
         }
     """
-    chunk_map = await fetch_chunk_map()
+    chunk_map = await fetch_chunk_map(chapter_id)
     chunk_ids = extract_chunk_ids(chunk_map)
 
     if not chunk_ids:

@@ -57,10 +57,47 @@ CHUNK_MAP_PATHS = [
 ]
 
 
-async def fetch_chunk_map() -> dict:
-    """Fetch and merge all chunk maps from GitHub into a single dict."""
+def _chapter_id_from_path(path: str) -> str:
+    """'chunks/chapter1_chunks.json' → 'chapter1'"""
+    return path.split("/")[-1].replace("_chunks.json", "")
+
+
+_chapter_list_cache: list | None = None
+
+
+async def fetch_chapter_list() -> list[dict]:
+    """Fetch and cache metadata for all available chapters.
+
+    Returns list of dicts: {id, chapter, title, chunk_count}
+    """
+    global _chapter_list_cache
+    if _chapter_list_cache is not None:
+        return _chapter_list_cache
+
+    result = []
+    for path in CHUNK_MAP_PATHS:
+        try:
+            chunk_map = await _fetch_file(path)
+            result.append({
+                "id": _chapter_id_from_path(path),
+                "chapter": chunk_map.get("chapter", "?"),
+                "title": chunk_map.get("chapter_title", ""),
+                "chunk_count": len(chunk_map.get("chunks", [])),
+            })
+            logger.info("Chapter loaded: %s — %s", chunk_map.get("chapter"), chunk_map.get("chapter_title"))
+        except Exception as e:
+            logger.warning("Could not load chapter info from %s: %s", path, e)
+
+    _chapter_list_cache = result
+    return result
+
+
+async def fetch_chunk_map(chapter_id: str | None = None) -> dict:
+    """Fetch chunk map(s). If chapter_id given, only load that chapter."""
     all_chunks = []
     for path in CHUNK_MAP_PATHS:
+        if chapter_id and _chapter_id_from_path(path) != chapter_id:
+            continue
         try:
             chunk_map = await _fetch_file(path)
             all_chunks.extend(chunk_map.get("chunks", []))
