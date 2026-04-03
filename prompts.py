@@ -182,6 +182,12 @@ def _extract_style_rules(style_data: dict) -> str:
     if lang.get("transitional_whitespace", {}).get("pattern"):
         lines.append("ใช้บรรทัดว่างแบ่ง section เสมอ")
 
+    examples = style_data.get("writing_examples", [])
+    if examples:
+        lines.append("\n## ตัวอย่างสไตล์การเขียนจริงๆ (เขียนให้ใกล้เคียงแบบนี้)")
+        for i, ex in enumerate(examples, 1):
+            lines.append(f"\n[ตัวอย่างที่ {i}]\n{ex}")
+
     return "\n".join(lines)
 
 
