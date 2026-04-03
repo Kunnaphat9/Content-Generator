@@ -51,12 +51,23 @@ async def _fetch_file(path: str) -> dict:
         return response.json()
 
 
-CHUNK_MAP_PATH = "chunks/chapter5_chunks.json"
+CHUNK_MAP_PATHS = [
+    "chunks/chapter1_chunks.json",
+    "chunks/chapter5_chunks.json",
+]
 
 
 async def fetch_chunk_map() -> dict:
-    """Fetch the chunk map JSON from GitHub."""
-    return await _fetch_file(CHUNK_MAP_PATH)
+    """Fetch and merge all chunk maps from GitHub into a single dict."""
+    all_chunks = []
+    for path in CHUNK_MAP_PATHS:
+        try:
+            chunk_map = await _fetch_file(path)
+            all_chunks.extend(chunk_map.get("chunks", []))
+            logger.info("Loaded %d chunks from %s", len(chunk_map.get("chunks", [])), path)
+        except Exception as e:
+            logger.warning("Could not load chunk map %s: %s", path, e)
+    return {"chunks": all_chunks}
 
 
 async def fetch_knowledge_file(chunk_id: str) -> dict:
